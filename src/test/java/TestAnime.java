@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,50 +19,44 @@ public class TestAnime {
     }
 
     @Test
-    public void PagAnime(){
+    public void abrirPaginaAnime(){ //Abrindo A Página//
+        System.setProperty("webDriver.chrome.driver","src\\test\\resources\\chromedriver.exe");
+        webdriver.manage().window().maximize();
+
         webdriver.get("https://animesonline.org/");
         Assertions.assertEquals("https://animesonline.org/", webdriver.getCurrentUrl());
     }
 
     @Test
-    public void abrirPaginaAnime(){
-        System.setProperty("webDriver.chrome.driver","src\\test\\resources\\chromedriver.exe");
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-
-        webDriver.get("https://animesonline.org/");
-        Assertions.assertEquals("https://animesonline.org/", webDriver.getCurrentUrl());
+    public void buttonTest(){ // Clicando No Botão Por Id//
+        webdriver.manage().window().maximize();
+        webdriver.get("https://animesonline.org/");
+        WebElement botao = webdriver.findElement(By.id("searchform"));
     }
 
     @Test
-    public void buttonTest(){
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.get("https://animesonline.org/");
-        WebElement botao = webDriver.findElement(By.id("searchform"));
-    }
+    public void TestPesquisaAnime() { // Inserindo o nome especificado no campo de Pesquisa do site //
+        webdriver.manage().window().maximize();
+        webdriver.get("https://animesonline.org/");
 
-    @Test
-    public void TestPesquisaAnime() {
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.get("https://animesonline.org/");
-
-        WebElement search = webDriver.findElement(By.id("s"));
+        WebElement search = webdriver.findElement(By.id("s"));
         search.sendKeys("Naruto");
 
     }
 
     @Test
-    public void abrirPaginaTest (){
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.get("https://animesonline.org/");
-        Actions actions = new Actions(webDriver);
-        WebElement botao = webDriver.findElement(
+    public void MovElemtos (){ // Mover o mouse pra um elemento//
+        webdriver.manage().window().maximize();
+        webdriver.get("https://animesonline.org/");
+        Actions actions = new Actions(webdriver);
+        WebElement botao = webdriver.findElement(
                 By.id("s"));
         actions.moveToElement(botao).perform();
     }
 
+    @AfterEach
+    public void finalizando() {
+        webdriver.close();
+    }
 
 }
